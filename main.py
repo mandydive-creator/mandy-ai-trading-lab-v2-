@@ -5,19 +5,30 @@ app = FastAPI()
 
 BASE = 3576420
 RISK_PCT = 0.02
+HOLDINGS = {
+    "2330": 40,
+    "3711": 100,
+    "2337": 5700,
+    "0050": 1000,
+    "00981A": 15000,
+    "AAPL": 10,
+    "NVDA": 10,
+    "BTC-USD": 1
+}
 RISK_AMOUNT = BASE * RISK_PCT
-
+CURRENT_MKT = 3503876
 
 CORE = ["2330","3711","2337","0050","00981A","AAPL","NVDA","BTC-USD"]
 
 @app.get("/")
 def root():
     return {
-        "lab": "Mandy AI Trading Lab V2 FINAL VERIFIED",
+        "lab": "Mandy AI Trading Lab V2 AUTO",
         "base": BASE,
         "risk_pct": RISK_PCT,
         "risk_amount": RISK_AMOUNT,
-        "note": "70077.52 is 3503876*2% not applicable",
+        "holdings": HOLDINGS,
+        "note": f"current {CURRENT_MKT}*2%={CURRENT_MKT*0.02}",
         "core": CORE,
         "time": datetime.now().isoformat()
     }
@@ -25,15 +36,3 @@ def root():
 @app.get("/health")
 def health():
     return {"status": "ok", "time": datetime.now().isoformat()}
-
-@app.get("/quotes/core")
-def quotes_core():
-    now = datetime.now().isoformat()
-    return {
-        "query_time": now,
-        "data_date": now,
-        "source": "yfinance",
-        "risk": {"base": BASE, "amount": RISK_AMOUNT},
-        "agents": ["CHIEF","SCAN","VET","SOCIAL","RISK","SIZE","FILLS"],
-        "tickers": CORE
-    }
