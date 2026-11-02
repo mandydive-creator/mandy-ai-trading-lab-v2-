@@ -3,9 +3,10 @@ from datetime import datetime
 
 app = FastAPI()
 
-BASE = 2623709
+BASE = 3576420
 RISK_PCT = 0.02
-RISK_AMOUNT = 52474.18
+RISK_AMOUNT = BASE * RISK_PCT
+
 
 CORE = ["2330","3711","2337","0050","00981A","AAPL","NVDA","BTC-USD"]
 
